@@ -21,7 +21,9 @@ class BrowserWindow(QMainWindow):
         self.tab_desc = EntityDescriptionWidget()
         self.tab_data = BrowseDataWidget()
         self.tab_query = QueryDataWidget()
+        
         self.db = None
+        self.file = None
 
         self.tab_bar.addTab(self.tab_desc,"Entity Descriptions")
         self.tab_bar.addTab(self.tab_data,"Browse Data")
@@ -40,12 +42,14 @@ class BrowserWindow(QMainWindow):
 
     def load_database_file(self):
         self.file = QFileDialog.getOpenFileName(caption="Open Database",filter="Database file (*.db *.dat)")
-        self.open_database_connection(self.file)
-        QSqlQuery("PRAGMA foreign_keys = ON")
-        self.set_up_tab(self.tab_bar.currentIndex())
-
-    def close_database_file(self):
-        self.file.close()
+        if len(self.file) > 0:
+            if self.db:
+                self.tab_desc.model = None
+                self.db.database().close()
+                self.db.removeDatabase(self.db.connectionName())
+            self.open_database_connection(self.file)
+            #QSqlQuery("PRAGMA foreign_keys = ON")
+            self.set_up_tab(self.tab_bar.currentIndex())
 
     def open_database_connection(self,file):
         self.db = QSqlDatabase.addDatabase("QSQLITE")
