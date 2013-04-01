@@ -47,14 +47,15 @@ class EntityDescriptionWidget(QWidget):
             #check for foreign keys
             sql = ("pragma foreign_key_list({0})".format(self.db.tables()[index]))
             query = QSqlQuery(sql)
-            query.first()
-            more_keys = True
-            while more_keys:
-                search_value = query.value(4)
-                if search_value in attributes:
-                    i = attributes.index(search_value)
-                    attributes[i] = "<i>{0}</i>".format(attributes[i])
-                more_keys = query.next()
+            result = query.first()
+            if result:
+                more_keys = True
+                while more_keys:
+                    search_value = query.value(4)
+                    if search_value in attributes:
+                        i = attributes.index(search_value)
+                        attributes[i] = "<i>{0}</i>".format(attributes[i])
+                    more_keys = query.next()
 
 
             #create entity description
