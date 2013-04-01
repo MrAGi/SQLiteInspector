@@ -41,6 +41,8 @@ class BrowserWindow(QMainWindow):
     def load_database_file(self):
         self.file = QFileDialog.getOpenFileName(caption="Open Database",filter="Database file (*.db *.dat)")
         self.open_database_connection(self.file)
+        QSqlQuery("PRAGMA foreign_keys = ON")
+        self.set_up_tab(self.tab_bar.currentIndex())
 
     def close_database_file(self):
         self.file.close()
@@ -52,7 +54,7 @@ class BrowserWindow(QMainWindow):
 
     def set_up_tab(self,tab):
         if tab == 0:
-            self.tab_desc.update_db(self.db)
+            self.tab_desc.update_layout(self.db)
         elif tab == 1:
             self.tab_data.update_layout(self.db)
         elif tab == 2:

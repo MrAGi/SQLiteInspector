@@ -25,15 +25,16 @@ class BrowseDataWidget(QWidget):
             self.db = db
             self.available_tables.clear()
             self.available_tables.addItems(self.db.tables())
-            self.model = QSqlTableModel()
+            self.model = QSqlRelationalTableModel()
             self.change_table(0)
 
         
 
     def change_table(self,index):
-        self.model.setTable(self.db.tables()[index])
-        self.model.select()
-        self.table_view.setModel(self.model)
-        self.table_view.show()
+        if self.model != None:
+            self.model.setTable(self.db.tables()[index])
+            self.model.select()
+            self.table_view.setModel(self.model)
+            self.table_view.show()
 
 
