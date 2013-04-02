@@ -7,7 +7,6 @@ class SQLConnection:
         self.path = path
         self.db = None
         self.model = None
-        self.view = None
         self.query_result = None
 
     def open_database(self):
@@ -68,11 +67,4 @@ class SQLConnection:
             self.open_database()
 
         self.query_result = QSqlQuery(sql,db=self.db)
-
-    def table_view(self):
-        if self.view:
-            self.view = None
-
-        self.view = QTableView()
-        self.view.setModel(self.model)
 
