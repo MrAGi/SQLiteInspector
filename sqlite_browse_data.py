@@ -9,8 +9,7 @@ class BrowseDataWidget(QWidget):
         self.available_tables = QComboBox()
         self.table_view = QTableView()
 
-        self.db = None
-        self.model = None
+        self.conn = None
 
         self.layout.addWidget(self.available_tables)
         self.layout.addWidget(self.table_view)
@@ -20,23 +19,24 @@ class BrowseDataWidget(QWidget):
         #connections
         self.available_tables.currentIndexChanged.connect(self.change_table)
 
-    def update_layout(self,db):
-        if db != None and self.db == None:
-            self.db = db
-            self.available_tables.clear()
-            self.available_tables.addItems(self.db.tables())
-            self.model = QSqlRelationalTableModel()
-            self.change_table(0)
-        else:
-            self.model.select() #refresh the view
+    def update_layout(self,conn):
+        self.available_tables.clear()
+        self.conn = conn
+        self.available_tables.addItems(conn.db.tables())
+        conn.relational_table_model()
+        self.change_table(0)
+        #else:
+            #conn.model.select() #refresh the view
 
         
 
     def change_table(self,index):
-        if self.model != None:
-            self.model.setTable(self.db.tables()[index])
-            self.model.select()
-            self.table_view.setModel(self.model)
-            self.table_view.show()
+        try:
+            self.conn.model.setTable(self.conn.db.tables()[index])
+            self.conn.model.select()
+            self.table_view.setModel(self.conn.model)
+        except AttributeError:
+            pass
+        #conn.table_view.show()
 
 

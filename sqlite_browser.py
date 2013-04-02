@@ -7,10 +7,13 @@ from PyQt4.QtSql import *
 from sqlite_entity_descriptions import *
 from sqlite_browse_data import *
 from sqlite_query_data import *
+from sqlite_connection import *
 
 class BrowserWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.db_connection = None
 
         self.menu_bar = QMenuBar()
         self.file_menu = self.menu_bar.addMenu("File")
@@ -21,9 +24,6 @@ class BrowserWindow(QMainWindow):
         self.tab_desc = EntityDescriptionWidget()
         self.tab_data = BrowseDataWidget()
         self.tab_query = QueryDataWidget()
-        
-        self.db = None
-        self.file = None
 
         self.tab_bar.addTab(self.tab_desc,"Entity Descriptions")
         self.tab_bar.addTab(self.tab_data,"Browse Data")
@@ -41,28 +41,27 @@ class BrowserWindow(QMainWindow):
         self.tab_bar.currentChanged.connect(self.set_up_tab)
 
     def load_database_file(self):
-        self.file = QFileDialog.getOpenFileName(caption="Open Database",filter="Database file (*.db *.dat)")
-        if len(self.file) > 0:
-            if self.db:
-                self.tab_desc.model = None
-                self.db.database().close()
-                self.db.removeDatabase(self.db.connectionName())
-            self.open_database_connection(self.file)
-            #QSqlQuery("PRAGMA foreign_keys = ON")
-            self.set_up_tab(self.tab_bar.currentIndex())
+        self.tab_data.table_view.setModel(None)
+        self.tab_query.table_view.setModel(None)
 
-    def open_database_connection(self,file):
-        self.db = QSqlDatabase.addDatabase("QSQLITE")
-        self.db.setDatabaseName(file)
-        ok = self.db.open()
+        path = QFileDialog.getOpenFileName(caption="Open Database",filter="Database file (*.db *.dat)")
+        if len(path) > 0:
+            #already have a connection object
+            if self.db_connection:
+                self.db_connection.path = path
+            else:
+                self.db_connection = SQLConnection(path)
+            
+            self.db_connection.open_database()
+            self.set_up_tab(self.tab_bar.currentIndex())
 
     def set_up_tab(self,tab):
         if tab == 0:
-            self.tab_desc.update_layout(self.db)
+            self.tab_desc.update_layout(self.db_connection)
         elif tab == 1:
-            self.tab_data.update_layout(self.db)
+            self.tab_data.update_layout(self.db_connection)
         elif tab == 2:
-            self.tab_query.update_db(self.db)
+            self.tab_query.update_db(self.db_connection)
 
 
 def main():

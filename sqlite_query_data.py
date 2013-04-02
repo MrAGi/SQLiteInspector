@@ -20,16 +20,15 @@ class QueryDataWidget(QWidget):
         #connections
         self.execute_query_button.clicked.connect(self.query_results)
 
-    def update_db(self,db):
-        self.db = db
+    def update_db(self,conn):
+        self.conn = conn
 
     def query_results(self):
         query = self.query.toPlainText()
-        self.model = QSqlQueryModel()
-        self.model.setQuery(query)
-        self.table_view.setModel(self.model)
+        self.conn.query_model(query)
+        self.table_view.setModel(self.conn.model)
         self.table_view.show()
-        if self.model.lastError().isValid():
+        if self.conn.model.lastError().isValid():
             error_dialog = QMessageBox()
-            error_dialog.setText(self.model.lastError().databaseText())
+            error_dialog.setText(self.conn.model.lastError().databaseText())
             error_dialog.exec()
