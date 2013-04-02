@@ -15,12 +15,11 @@ class QueryDataWidget(QWidget):
         self.layout.addWidget(self.table_view)
 
         self.setLayout(self.layout)
-        self.db = None
 
         #connections
         self.execute_query_button.clicked.connect(self.query_results)
 
-    def update_db(self,conn):
+    def update_connection(self,conn):
         self.conn = conn
 
     def query_results(self):

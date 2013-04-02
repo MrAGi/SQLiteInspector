@@ -41,6 +41,7 @@ class BrowserWindow(QMainWindow):
         self.tab_bar.currentChanged.connect(self.set_up_tab)
 
     def load_database_file(self):
+        #ensure that model is removed so that connection to database can be closed
         self.tab_data.table_view.setModel(None)
         self.tab_query.table_view.setModel(None)
 
@@ -61,7 +62,7 @@ class BrowserWindow(QMainWindow):
         elif tab == 1:
             self.tab_data.update_layout(self.db_connection)
         elif tab == 2:
-            self.tab_query.update_db(self.db_connection)
+            self.tab_query.update_connection(self.db_connection)
 
 
 def main():
