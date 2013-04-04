@@ -73,6 +73,7 @@ class BrowserWindow(QMainWindow):
         self.main_widget = QWidget()
         self.main_widget.setLayout(self.layout)
         self.setCentralWidget(self.main_widget)
+        self.setMenuWidget(self.menu_bar)
 
         #connections
         self.load_database.triggered.connect(self.load_database_file)
