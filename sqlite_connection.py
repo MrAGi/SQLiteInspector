@@ -1,3 +1,18 @@
+#! /usr/bin/env/python
+# -*- coding: UTF8 -*-
+"""
+sqlite_connection.py
+Purpose:
+    Provides a class that can be instantiated to manage connections to a SQLite3 database
+Target System:
+    Mac OS X 10.8 and Windows 7
+Interface:
+    GUI (PyQt)
+Functional Requirements:
+     Provides a class that can be instantiated to manage connections to a SQLite3 databases.
+    User must provide a valid path to a SQLite3 database
+"""
+
 from PyQt4.QtSql import *
 from PyQt4.QtGui import *
 
@@ -10,6 +25,8 @@ class SQLConnection:
         self.query_result = None
 
     def open_database(self):
+        """opens the datbase on the current path and closes any previously opened connections"""
+
         if self.db:
             self.close_database()
 
@@ -19,6 +36,8 @@ class SQLConnection:
         self.db.open()
 
     def close_database(self):
+        """closes the datbase that is currently open"""
+
         if self.view:
             self.view.setModel(None)
         del self.model
@@ -31,38 +50,49 @@ class SQLConnection:
         self.close_database()
 
     def table_model(self):
+        """sets the model for the current connection to a QSqlTableModel and sets the current table to
+        the first table in the database
+        """
+
         if not self.db.isOpen():
             self.open_database()
-
-       # if self.model:
-          #  del self.model
 
         self.model = QSqlTableModel(db=self.db)
         self.model.setTable(self.db.tables()[0])
         self.model.select()
 
     def relational_table_model(self):
+        """sets the model for the current connection to a QSqlRelationalTableModel and sets the current table to
+        the first table in the database
+        """
+
         if not self.db.isOpen():
             self.open_database()
 
-       # if self.model:
-         #   del self.model
-
-        self.model = QSqlTableModel(db=self.db)
+        self.model = QSqlRelationalTableModel(db=self.db)
         self.model.setTable(self.db.tables()[0])
         self.model.select()
 
     def query_model(self,sql):
+        """sets the model for the current connection to a QSqlQueryModel executes the given query
+
+        Takes one argument:
+            sql - the sql query to be executed
+        """
+
         if not self.db.isOpen():
             self.open_database()
-
-        #if self.model:
-          #  del self.model
 
         self.model = QSqlQueryModel()
         self.model.setQuery(sql,db=self.db)
 
     def run_query(self,sql):
+        """executes a given query on the current connection
+
+        Takes one argument:
+            sql - the sql query to be executed
+        """
+        
         if not self.db.isOpen():
             self.open_database()
 

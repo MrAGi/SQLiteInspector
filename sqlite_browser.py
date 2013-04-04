@@ -1,3 +1,24 @@
+#! /usr/bin/env/python
+# -*- coding: UTF8 -*-
+"""
+sqlite_browser.py
+Purpose:
+    View tables, check queries and see entity descriptions for a SQLite3 database
+Target System:
+    Mac OS X 10.8 and Windows 7
+Interface:
+    GUI (PyQt)
+Functional Requirements:
+    Provides an interface to browse tables, execute queries and view enity descriptions.
+    User must provide a valid SQLite3 database with extension of *.db or *.dat
+"""
+
+__version__ = 0.1
+__status__ = "Prototype"
+__date__ = "04-04-2013"
+__maintainer__ = "adam@mcnicol.me"
+__credits__ = "Inspired by SQLite Database Browser"
+
 import sys
 
 from PyQt4.QtGui import *
@@ -10,6 +31,7 @@ from sqlite_query_data import *
 from sqlite_connection import *
 
 class BrowserWindow(QMainWindow):
+    """Creates the main window for the application"""
     def __init__(self):
         super().__init__()
 
@@ -41,6 +63,9 @@ class BrowserWindow(QMainWindow):
         self.tab_bar.currentChanged.connect(self.set_up_tab)
 
     def load_database_file(self):
+        """asks the user for the database file to load and ensures any previous database
+            connections are closed before opening a new connection to the given file
+        """
         #ensure that model is removed so that connection to database can be closed
         self.tab_data.table_view.setModel(None)
         self.tab_query.table_view.setModel(None)

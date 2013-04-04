@@ -1,8 +1,24 @@
+#! /usr/bin/env/python
+# -*- coding: UTF8 -*-
+"""
+sqlite_entity_descriptions.py
+Purpose:
+    Provides a widget that displays entity descriptions from a SQLite3 database
+Target System:
+    Mac OS X 10.8 and Windows 7
+Interface:
+    GUI (PyQt)
+Functional Requirements:
+     Provides a widget that displays entity descriptions from a SQLite3 databases.
+    User must provide a valid SQLite3 database connection to this widget
+"""
+
 from PyQt4.QtGui import *
 from PyQt4.QtSql import *
 from PyQt4.QtCore import *
 
 class EntityDescriptionWidget(QWidget):
+    """A widget that can display entity descriptions from an open database connection"""
     def __init__(self):
         super().__init__()
         self.layout = QVBoxLayout()
@@ -12,6 +28,12 @@ class EntityDescriptionWidget(QWidget):
         self.setLayout(self.layout)
 
     def update_layout(self,conn):
+        """updates the widget to contain entity descriptions from the current open database connection
+
+        Takes one argument:
+            conn - the current open database connection
+        """
+
         conn.relational_table_model()
         descriptions = ""
         for each in range(len(conn.db.tables())):
@@ -20,6 +42,16 @@ class EntityDescriptionWidget(QWidget):
         self.entity_description.setHtml(descriptions)
 
     def create_entity_description(self,index,conn):
+        """creates a HTML text string containing the entity description for the provided entity
+
+        Takes two arguments:
+            index - the index value for the entity
+            conn - the current open database connection
+
+        Return values:
+            entity_desc - the HTML text for the entity description
+        """
+
         entity_desc = ""
         conn.model.setTable(conn.db.tables()[index])
         conn.model.select()
