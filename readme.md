@@ -37,3 +37,4 @@ Adam. (adam@mcnicol.me)
 
 [1]: http://sqlitebrowser.sourceforge.net
 [2]: http://opensource.org/licenses/GPL-3.0
+[3]: https://github.com/MrAGi/SQLiteInspector
