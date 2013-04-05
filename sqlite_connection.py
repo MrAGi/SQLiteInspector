@@ -48,13 +48,11 @@ class SQLConnection:
         self.db = QSqlDatabase.addDatabase("QSQLITE", "conn")
 
         self.db.setDatabaseName(self.path)
-        self.db.open()
+        ok = self.db.open()
+        return ok
 
     def close_database(self):
         """closes the datbase that is currently open"""
-
-        if self.view:
-            self.view.setModel(None)
         del self.model
         del self.query_result
         self.db.close()
