@@ -59,9 +59,9 @@ class BrowserWindow(QMainWindow):
         #add about option to menu 
         if sys.platform != "darwin":
             self.help_menu = self.menu_bar.addMenu("Help")
-            self.about = self.help_menu.addAction("abouttest")
+            self.about = self.help_menu.addAction("About SQLite Inspector")
         else:
-            self.about = self.file_menu.addAction("abouttest")
+            self.about = self.file_menu.addAction("About SQLite Inspector")
 
         self.load_database = self.file_menu.addAction("Load Database")
         self.load_database_icon = QIcon(QPixmap("open.png"))
