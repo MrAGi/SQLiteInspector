@@ -38,6 +38,8 @@ class EntityDescriptionWidget(QWidget):
         super().__init__()
         self.layout = QVBoxLayout()
         self.entity_description = QTextEdit()
+        self.entity_description.setReadOnly(True)
+        self.entity_description.setMinimumWidth(500)
 
         self.layout.addWidget(self.entity_description)
         self.setLayout(self.layout)
