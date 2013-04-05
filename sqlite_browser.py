@@ -46,12 +46,16 @@ from sqlite_browse_data import *
 from sqlite_query_data import *
 from sqlite_connection import *
 
+import sqlite_images
+
 class BrowserWindow(QMainWindow):
     """Creates the main window for the application"""
     def __init__(self):
         super().__init__()
 
         self.db_connection = None
+
+        self.logo = QPixmap(":/logo.png")
 
         self.menu_bar = QMenuBar()
         self.file_menu = self.menu_bar.addMenu("File")
@@ -64,13 +68,13 @@ class BrowserWindow(QMainWindow):
             self.about = self.file_menu.addAction("About SQLite Inspector")
 
         self.load_database = self.file_menu.addAction("Load Database")
-        self.load_database_icon = QIcon(QPixmap("open.png"))
+        self.load_database_icon = QIcon(QPixmap(":/open.png"))
         self.load_database.setIcon(self.load_database_icon)
         self.load_database.setShortcut(QKeySequence("Ctrl+o"))
 
         self.refresh_database = self.file_menu.addAction("Refresh Database")
         self.refresh_database.setDisabled(True)
-        self.refresh_database_icon = QIcon(QPixmap("refresh.png"))
+        self.refresh_database_icon = QIcon(QPixmap(":/refresh.png"))
         self.refresh_database.setIcon(self.refresh_database_icon)
         self.refresh_database.setShortcut(QKeySequence("F5"))
 
@@ -105,6 +109,7 @@ class BrowserWindow(QMainWindow):
         self.setMenuWidget(self.menu_bar)
         self.setUnifiedTitleAndToolBarOnMac(True)
         self.setWindowTitle("SQLite Inspector")
+        self.setWindowIcon(QIcon(self.logo))
 
         #connections
         self.load_database.triggered.connect(self.load_database_file)
