@@ -78,6 +78,9 @@ class BrowserWindow(QMainWindow):
 
         self.addToolBar(self.tool_bar)
 
+        self.status_bar = QStatusBar()
+        self.setStatusBar(self.status_bar)
+
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.tab_bar)
 
