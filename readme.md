@@ -17,7 +17,7 @@ The program has not been extensively tested yet and therefore may not function a
 
 Known issues include:
 
-- When switching back to the "Browse data" tab the first table is always shown even if you had previously displayed another table
+- When switching back to the "Browse data" tab the first table is always shown even if you had previously displayed another table (Fixed 05/04/2013)
 
 ##Licensing
 

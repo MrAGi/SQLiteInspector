@@ -56,12 +56,13 @@ class BrowseDataWidget(QWidget):
         Takes one argument:
             conn - the current open database connection
         """
-
-        self.available_tables.clear()
-        self.conn = conn
-        self.available_tables.addItems(conn.db.tables())
-        conn.relational_table_model()
-        self.change_table(0)
+        current_items = [self.available_tables.itemText(i) for i in range(self.available_tables.count())]
+        if not (current_items == conn.db.tables()):
+            self.available_tables.clear()
+            self.conn = conn
+            self.available_tables.addItems(conn.db.tables())
+            conn.relational_table_model()
+            self.change_table(0)
 
     def change_table(self,index):
         """updates the widget to contain entity data from the selected entity
