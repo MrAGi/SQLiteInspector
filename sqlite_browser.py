@@ -157,6 +157,44 @@ class BrowserWindow(QMainWindow):
     def about_application(self):
         dialog = QDialog()
         dialog.setWindowTitle("About SQLite Inspector")
+
+        layout = QVBoxLayout()
+        logo_layout = QHBoxLayout()
+        copyright_layout = QVBoxLayout()
+
+        logo = QLabel()
+        logo.setPixmap(self.logo.scaledToWidth(200))
+        logo.setMinimumWidth(400)
+        app_name = QLabel("<b>SQLite Inspector</b>")
+        app_name.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
+        copyright = QLabel("Copyright © 2013 Adam McNicol")
+        copyright.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
+        twitter = QLabel("@AdamMcNicol")
+        twitter.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
+        app_version = QLabel("Version 0.1")
+        app_version.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
+        license = QTextEdit("""This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+<br/><br/>
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+<br/><br/>
+You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>""")
+
+        license.setMinimumWidth(400)
+        license.setMaximumHeight(100)
+        license.setReadOnly(True)
+
+        logo_layout.addWidget(logo)
+        copyright_layout.addWidget(app_name)
+        copyright_layout.addWidget(app_version)
+        copyright_layout.addWidget(copyright)
+        copyright_layout.addWidget(twitter)
+        logo_layout.addLayout(copyright_layout)
+        layout.addLayout(logo_layout)
+        layout.addWidget(license)
+
+        dialog.setLayout(layout)
+        dialog.setFixedWidth(500)
+        dialog.setFixedHeight(400)
         dialog.exec_()
 
     def refresh(self):
