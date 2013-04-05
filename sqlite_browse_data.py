@@ -56,6 +56,8 @@ class BrowseDataWidget(QWidget):
         Takes one argument:
             conn - the current open database connection
         """
+
+        #gets text for each item in the available_tables combobox and puts it in a list
         current_items = [self.available_tables.itemText(i) for i in range(self.available_tables.count())]
         if not (current_items == conn.db.tables()):
             self.available_tables.clear()
@@ -78,5 +80,11 @@ class BrowseDataWidget(QWidget):
         except AttributeError:
             pass
         #conn.table_view.show()
+
+    def refresh(self):
+        try:
+            self.conn.model.select()
+        except AttributeError:
+            pass
 
 

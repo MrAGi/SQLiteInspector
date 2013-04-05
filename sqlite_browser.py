@@ -55,10 +55,24 @@ class BrowserWindow(QMainWindow):
 
         self.menu_bar = QMenuBar()
         self.file_menu = self.menu_bar.addMenu("File")
+
+        #add about option to menu 
+        if sys.platform != "darwin":
+            self.help_menu = self.menu_bar.addMenu("Help")
+            self.about = self.help_menu.addAction("abouttest")
+        else:
+            self.about = self.file_menu.addAction("abouttest")
+
         self.load_database = self.file_menu.addAction("Load Database")
         self.load_database_icon = QIcon(QPixmap("open.png"))
         self.load_database.setIcon(self.load_database_icon)
-        self.about = self.file_menu.addAction("&abouttest")
+        self.load_database.setShortcut(QKeySequence("Ctrl+o"))
+
+        self.refresh_database = self.file_menu.addAction("Refresh Database")
+        self.refresh_database.setDisabled(True)
+        self.refresh_database_icon = QIcon(QPixmap("refresh.png"))
+        self.refresh_database.setIcon(self.refresh_database_icon)
+        self.refresh_database.setShortcut(QKeySequence("F5"))
 
         self.tab_bar = QTabWidget()
 
@@ -75,6 +89,7 @@ class BrowserWindow(QMainWindow):
         self.tool_bar.setIconSize(QSize(20,20))
 
         self.tool_bar.addAction(self.load_database)
+        self.tool_bar.addAction(self.refresh_database)
 
         self.addToolBar(self.tool_bar)
 
@@ -95,6 +110,7 @@ class BrowserWindow(QMainWindow):
         self.load_database.triggered.connect(self.load_database_file)
         self.about.triggered.connect(self.about_application)
         self.tab_bar.currentChanged.connect(self.set_up_tab)
+        self.refresh_database.triggered.connect(self.refresh)
 
     def load_database_file(self):
         """asks the user for the database file to load and ensures any previous database
@@ -124,16 +140,23 @@ class BrowserWindow(QMainWindow):
         """
         if self.db_connection:
             if tab == 0:
+                self.refresh_database.setDisabled(True)
                 self.tab_desc.update_layout(self.db_connection)
             elif tab == 1:
+                self.refresh_database.setDisabled(False)
                 self.tab_data.update_layout(self.db_connection)
             elif tab == 2:
+                self.refresh_database.setDisabled(True)
                 self.tab_query.update_connection(self.db_connection)
 
     def about_application(self):
         dialog = QDialog()
         dialog.setWindowTitle("About SQLite Inspector")
         dialog.exec_()
+
+    def refresh(self):
+        if self.tab_bar.currentIndex() == 1:
+            self.tab_data.refresh()
 
 
 def main():
