@@ -56,6 +56,9 @@ class BrowserWindow(QMainWindow):
         self.menu_bar = QMenuBar()
         self.file_menu = self.menu_bar.addMenu("File")
         self.load_database = self.file_menu.addAction("Load Database")
+        self.load_database_icon = QIcon(QPixmap("open.png"))
+        self.load_database.setIcon(self.load_database_icon)
+        self.about = self.file_menu.addAction("&abouttest")
 
         self.tab_bar = QTabWidget()
 
@@ -67,6 +70,14 @@ class BrowserWindow(QMainWindow):
         self.tab_bar.addTab(self.tab_data,"Browse Data")
         self.tab_bar.addTab(self.tab_query,"Execute Query")
 
+        self.tool_bar = QToolBar("Manage Databases")
+        self.tool_bar.setMovable(False)
+        self.tool_bar.setIconSize(QSize(20,20))
+
+        self.tool_bar.addAction(self.load_database)
+
+        self.addToolBar(self.tool_bar)
+
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.tab_bar)
 
@@ -74,9 +85,12 @@ class BrowserWindow(QMainWindow):
         self.main_widget.setLayout(self.layout)
         self.setCentralWidget(self.main_widget)
         self.setMenuWidget(self.menu_bar)
+        self.setUnifiedTitleAndToolBarOnMac(True)
+        self.setWindowTitle("SQLite Inspector")
 
         #connections
         self.load_database.triggered.connect(self.load_database_file)
+        self.about.triggered.connect(self.about_application)
         self.tab_bar.currentChanged.connect(self.set_up_tab)
 
     def load_database_file(self):
@@ -95,16 +109,28 @@ class BrowserWindow(QMainWindow):
             else:
                 self.db_connection = SQLConnection(path)
             
-            self.db_connection.open_database()
+            ok = self.db_connection.open_database()
             self.set_up_tab(self.tab_bar.currentIndex())
 
     def set_up_tab(self,tab):
-        if tab == 0:
-            self.tab_desc.update_layout(self.db_connection)
-        elif tab == 1:
-            self.tab_data.update_layout(self.db_connection)
-        elif tab == 2:
-            self.tab_query.update_connection(self.db_connection)
+        """updates the current tab by providing the current database connection to the update method of the
+        appropriate main_widget
+
+        Takes one argument:
+            tab - the index value for selected tab
+        """
+        if self.db_connection:
+            if tab == 0:
+                self.tab_desc.update_layout(self.db_connection)
+            elif tab == 1:
+                self.tab_data.update_layout(self.db_connection)
+            elif tab == 2:
+                self.tab_query.update_connection(self.db_connection)
+
+    def about_application(self):
+        dialog = QDialog()
+        dialog.setWindowTitle("About SQLite Inspector")
+        dialog.exec_()
 
 
 def main():
