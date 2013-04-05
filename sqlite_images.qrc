@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource>
+        <file alias="open.png">images/open.png</file>
+        <file alias="refresh.png">images/refresh.png</file>
+        <file alias="logo.png">images/logo.png</file>
+    </qresource>
+</RCC>
