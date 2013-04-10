@@ -1,5 +1,5 @@
 #Read Me
-Last Updated - 9th April 2013.
+Last Updated - 10th April 2013.
 
 ##The Program
 SQLite Inspector provides a method of browsing data, executing queries and viewing the entity descriptions of a valid SQLite3 database file.
@@ -29,19 +29,19 @@ To run the program using the source files you will need to have the following in
 
 The program may work with other versions of Python and PyQt but I haven't tested this out.
 
-If you are unsure how to install these then I suggest you stick to the binary for your system.
+If you are unsure how to install these then I suggest you stick to the executable for your system.
 
 ###Mac Executable
 
 You should be able to drag the application bundle to whatever folder you like and run SQLite Inspector from there.
 
-The binary has only tested on Mac OS X 10.8.3 and 10.7.5 so I have no idea whether it will work on other versions at this stage - please let me know so I can update this notice.
+The executable has been tested on Mac OS X 10.8.3, 10.7.5 and 10.6.8 so I have no idea whether it will work on other versions at this stage - please let me know so I can update this notice.
 
 ###Windows Executable
 
 Run the msi installer to install SQLite Inspector. Once installer you should be able to run the application by clicking on **sqlite_browser** file in the installed folder.
 
-The binary has only been tested on Windows 7 Home Premium SP1 (64 bit) so I have no idea whether it will work on other versions at this stage - please let me know so I can update this notice.
+The executable has only been tested on Windows 7 Home Premium SP1 (64 bit) and Windows XP Professional SP3 (32 bit) so I have no idea whether it will work on other versions at this stage - please let me know so I can update this notice.
 
 ###Bugs and Errors
 
