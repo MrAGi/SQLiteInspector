@@ -36,6 +36,8 @@ __maintainer__ = "adam@mcnicol.me"
 __credits__ = "Inspired by SQLite Database Browser"
 
 import sys
+import os
+import sqlite3
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -125,6 +127,11 @@ class BrowserWindow(QMainWindow):
         self.tab_data.table_view.setModel(None)
         self.tab_query.table_view.setModel(None)
 
+        #print(os.path.dirname(sys.executable)+"/sqldrivers/libqsqlite.dylib")
+        #test = QPluginLoader(os.path.dirname(sys.executable)+"/sqldrivers/libqsqlite.dylib")
+        #print(test.errorString())
+        #print(test.isLoaded())
+
         path = QFileDialog.getOpenFileName(caption="Open Database",filter="Database file (*.db *.dat)")
         if len(path) > 0:
             #already have a connection object
@@ -204,10 +211,12 @@ You should have received a copy of the GNU General Public License along with thi
 
 def main():
     application = QApplication(sys.argv)
+    application.addLibraryPath(os.path.dirname(sys.executable))
     window = BrowserWindow()
     window.show()
     window.raise_()
     application.exec_()
+
 
 if __name__ == '__main__':
     main()

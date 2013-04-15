@@ -17,19 +17,24 @@ windows_icon = "sqlinspector.ico"
 mac_icon = "sqlinspector.icns"
 
 import sys
+import os
 
 from cx_Freeze import setup, Executable
 
 base = None
+
 if sys.platform == "win32":
     base = "Win32GUI"
     include_files = [("C:\Python32\Lib\site-packages\PyQt4\plugins\sqldrivers","sqldrivers")]
 else:
     include_files = [("/opt/local/share/qt4/plugins/sqldrivers","sqldrivers")]
+    #include_files = [("/opt/local/share/qt4/plugins/sqldrivers","../PlugIns/sqldrivers"),("/opt/local/lib/libsqlite3.0.dylib","libsqlite3.0.dylib"),
+                    #("/usr/lib/libstdc++.6.dylib","libstdc++.6.dylib"),("/usr/lib/libSystem.B.dylib","libSystem.B.dylib")]
+
 
 includes = ["atexit","re"]
 
-build_options = {"path": sys.path+["/opt/local/share/qt4/plugins"],
+build_options = {"path": sys.path,
                  "includes": includes,
                  "include_files":include_files,
                  "icon":windows_icon,
