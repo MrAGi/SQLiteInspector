@@ -29,9 +29,9 @@ Licence:
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
-__version__ = 0.1
+__version__ = 0.2
 __status__ = "Prototype"
-__date__ = "04-04-2013"
+__date__ = "16-04-2013"
 __maintainer__ = "adam@mcnicol.me"
 __credits__ = "Inspired by SQLite Database Browser"
 

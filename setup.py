@@ -23,22 +23,25 @@ from cx_Freeze import setup, Executable
 
 base = None
 
+includes = ["atexit","re"]
+
 if sys.platform == "win32":
     base = "Win32GUI"
     include_files = [("C:\Python32\Lib\site-packages\PyQt4\plugins\sqldrivers","sqldrivers")]
+    build_options = {"path": sys.path,
+                 "includes": includes,
+                 "include_files":include_files,
+                 "icon":windows_icon
+                }
 else:
     include_files = [("/opt/local/share/qt4/plugins/sqldrivers","sqldrivers")]
+    build_options = {"path": sys.path,
+                 "includes": includes,
+                 "include_files":include_files
+                }
     #include_files = [("/opt/local/share/qt4/plugins/sqldrivers","../PlugIns/sqldrivers"),("/opt/local/lib/libsqlite3.0.dylib","libsqlite3.0.dylib"),
                     #("/usr/lib/libstdc++.6.dylib","libstdc++.6.dylib"),("/usr/lib/libSystem.B.dylib","libSystem.B.dylib")]
 
-
-includes = ["atexit","re"]
-
-build_options = {"path": sys.path,
-                 "includes": includes,
-                 "include_files":include_files,
-                 "icon":windows_icon,
-                }
 
 if sys.platform == "win32":
     setup(

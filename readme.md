@@ -54,6 +54,8 @@ Known issues include:
 
 - When switching back to the "Browse data" tab the first table is always shown even if you had previously displayed another table (Fixed 05/04/2013)
 
+- If you execute a query from the "Execute query" tab and then use an external program to insert data to the database and then attempt to refresh the view from the "Browse Data" tab the program will not enable you to do this (Fixed 16/04/2013)
+
 ##Licensing
 
 This is my first attempt at an open source project and therefore I am unsure that I have correctly licensed all of the code. My intention is that all of the code is available under the [GPL version 3][2] license. 

@@ -59,11 +59,11 @@ class BrowseDataWidget(QWidget):
 
         #gets text for each item in the available_tables combobox and puts it in a list
         current_items = [self.available_tables.itemText(i) for i in range(self.available_tables.count())]
-        if not (current_items == conn.db.tables()):
+        if not (current_items == conn.db.tables()) or not(isinstance(conn.model,QSqlRelationalTableModel)):
             self.available_tables.clear()
             self.conn = conn
             self.available_tables.addItems(conn.db.tables())
-            conn.relational_table_model()
+            self.conn.relational_table_model()
             self.change_table(0)
 
     def change_table(self,index):
