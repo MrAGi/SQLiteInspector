@@ -39,9 +39,6 @@ else:
                  "includes": includes,
                  "include_files":include_files
                 }
-    #include_files = [("/opt/local/share/qt4/plugins/sqldrivers","../PlugIns/sqldrivers"),("/opt/local/lib/libsqlite3.0.dylib","libsqlite3.0.dylib"),
-                    #("/usr/lib/libstdc++.6.dylib","libstdc++.6.dylib"),("/usr/lib/libSystem.B.dylib","libSystem.B.dylib")]
-
 
 if sys.platform == "win32":
     setup(
