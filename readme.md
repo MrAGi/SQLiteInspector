@@ -1,5 +1,5 @@
 #Read Me
-Last Updated - 10th April 2013.
+Last Updated - 25th July 2013.
 
 ##The Program
 SQLite Inspector provides a method of browsing data, executing queries and viewing the entity descriptions of a valid SQLite3 database file.
@@ -31,18 +31,6 @@ The program may work with other versions of Python and PyQt but I haven't tested
 
 If you are unsure how to install these then I suggest you stick to the executable for your system.
 
-###Mac Executable
-
-You should be able to drag the application bundle to whatever folder you like and run SQLite Inspector from there.
-
-The executable has been tested on Mac OS X 10.8.3, 10.7.5 and 10.6.8 so I have no idea whether it will work on other versions at this stage - please let me know so I can update this notice.
-
-###Windows Executable
-
-Run the msi installer to install SQLite Inspector. Once installer you should be able to run the application by clicking on **sqlite_browser** file in the installed folder.
-
-The executable has only been tested on Windows 7 Home Premium SP1 (64 bit) and Windows XP Professional SP3 (32 bit) so I have no idea whether it will work on other versions at this stage - please let me know so I can update this notice.
-
 ###Bugs and Errors
 
 If you encounter any bugs or unexpected functionality please either e-mail me at [adam@mcnicol.me][4] or submit an issue on the project [GitHub][3] page.
@@ -55,6 +43,8 @@ Known issues include:
 - When switching back to the "Browse data" tab the first table is always shown even if you had previously displayed another table (Fixed 05/04/2013)
 
 - If you execute a query from the "Execute query" tab and then use an external program to insert data to the database and then attempt to refresh the view from the "Browse Data" tab the program will not enable you to do this (Fixed 16/04/2013)
+
+- If you query the database from the "execute query" tab and then use an external program to insert further data the program will not display this data on refreshing the "browse data view" (Fixed 25/07/2013)
 
 ##Licensing
 
