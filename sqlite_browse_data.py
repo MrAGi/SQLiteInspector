@@ -39,6 +39,7 @@ class BrowseDataWidget(QWidget):
 
         self.available_tables = QComboBox()
         self.table_view = QTableView()
+        self.current_table = None
 
         self.conn = None
 
@@ -78,14 +79,18 @@ class BrowseDataWidget(QWidget):
             self.conn.model.setTable(self.conn.db.tables()[index])
             self.conn.model.select()
             self.table_view.setModel(self.conn.model)
+            self.current_table = index
         except AttributeError as e:
             print(e)
         #conn.table_view.show()
 
     def refresh(self):
         try:
+            self.conn.model.setTable(self.conn.db.tables()[self.current_table])
             self.conn.model.select()
-        except AttributeError:
-            pass
+            self.table_view.setModel(self.conn.model)
+            #self.conn.model.select()
+        except AttributeError as e:
+            print(e)
 
 

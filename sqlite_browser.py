@@ -29,7 +29,7 @@ Licence:
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
-__version__ = 0.2.1
+__version__ = 0.3
 __status__ = "Prototype"
 __date__ = "24-06-2013"
 __maintainer__ = "adam@mcnicol.me"
@@ -153,9 +153,11 @@ class BrowserWindow(QMainWindow):
         if self.db_connection:
             if tab == 0:
                 self.refresh_database.setDisabled(True)
+                self.tab_query.clear_table_model()
                 self.tab_desc.update_layout(self.db_connection)
             elif tab == 1:
                 self.refresh_database.setDisabled(False)
+                self.tab_query.clear_table_model()
                 self.tab_data.update_layout(self.db_connection)
             elif tab == 2:
                 self.refresh_database.setDisabled(True)
@@ -178,7 +180,7 @@ class BrowserWindow(QMainWindow):
         copyright.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
         twitter = QLabel("@AdamMcNicol")
         twitter.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
-        app_version = QLabel("Version 0.1")
+        app_version = QLabel("Version 0.3")
         app_version.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
         license = QTextEdit("""This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 <br/><br/>

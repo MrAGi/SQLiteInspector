@@ -71,3 +71,6 @@ class QueryDataWidget(QWidget):
             error_dialog = QMessageBox()
             error_dialog.setText(self.conn.model.lastError().databaseText())
             error_dialog.exec()
+
+    def clear_table_model(self):
+        self.table_view.setModel(None)
