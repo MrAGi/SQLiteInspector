@@ -180,7 +180,7 @@ class BrowserWindow(QMainWindow):
         copyright.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
         twitter = QLabel("@AdamMcNicol")
         twitter.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
-        app_version = QLabel("Version 0.3")
+        app_version = QLabel("Version 0.3.1")
         app_version.setSizePolicy(QSizePolicy(QSizePolicy.Fixed))
         license = QTextEdit("""This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 <br/><br/>

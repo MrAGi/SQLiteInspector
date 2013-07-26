@@ -70,7 +70,6 @@ class SQLConnection:
         if not self.db.isOpen():
             self.open_database()
 
-        del self.model
         self.model = QSqlTableModel(db=self.db)
         self.model.setTable(self.db.tables()[0])
         self.model.select()
@@ -83,7 +82,6 @@ class SQLConnection:
         if not self.db.isOpen():
             self.open_database()
 
-        del self.model
         self.model = QSqlRelationalTableModel(db=self.db)
         self.model.setTable(self.db.tables()[0])
         self.model.select()
@@ -98,7 +96,6 @@ class SQLConnection:
         if not self.db.isOpen():
             self.open_database()
 
-        del self.model
         self.model = QSqlQueryModel()
         self.model.setQuery(sql,db=self.db)
 
