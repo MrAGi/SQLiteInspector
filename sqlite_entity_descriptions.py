@@ -94,7 +94,7 @@ class EntityDescriptionWidget(QWidget):
         if result:
             more_keys = True
             while more_keys:
-                search_value = conn.query_result.value(4)
+                search_value = conn.query_result.value(3)
                 if search_value in attributes:
                     i = attributes.index(search_value)
                     attributes[i] = "<i>{0}</i>".format(attributes[i])
